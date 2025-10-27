@@ -1,0 +1,79 @@
+# Deployment to Railway
+
+This document explains how to deploy the MotherHen application to Railway.
+
+## Simplified Deployment Structure
+
+The repository has been optimized for easy deployment by including only the necessary files:
+- Pre-built frontend files in the `build/` directory
+- Python backend in the `backend/` directory
+- No need for Node.js or frontend build tools on the deployment platform
+
+## Prerequisites
+
+1. A Railway account (railway.app)
+2. This repository connected to Railway
+
+## Deployment Process
+
+Railway will automatically:
+1. Use the `nixpacks.toml` configuration to set up the environment
+2. Install system dependencies (Python 3.9, FFmpeg)
+3. Install Python requirements from `requirements.txt`
+4. Start the application with `python backend/main.py`
+
+## Configuration Files
+
+### nixpacks.toml
+This file tells Railway how to build and deploy the application:
+- Installs Python 3.9 and FFmpeg as system dependencies
+- Installs Python dependencies from requirements.txt
+- Starts the Python backend which serves the pre-built frontend
+
+### railway.json
+This file configures Railway deployment settings:
+- Uses Nixpacks builder
+- Sets the start command
+- Configures restart policies
+- Sets environment variables
+
+### .gitignore
+Excludes unnecessary files from the repository:
+- Development files
+- Log files
+- Downloaded and compressed files
+- Virtual environments
+
+## Environment Variables
+
+Railway automatically sets the PORT environment variable. The application is configured to use this.
+
+Additional environment variables can be set in the Railway dashboard:
+- `FLASK_ENV` - Set to "production" for production deployments
+
+## FFmpeg Handling
+
+FFmpeg is installed via Nixpacks as a system dependency. The application uses the system-installed FFmpeg rather than a bundled version.
+
+## File Storage
+
+The application uses the local filesystem for:
+- Downloaded videos: `downloads/` directory
+- Compressed videos: `compressed/` directory
+- Scraper outputs: `modules/scraper/outputs/` directory
+
+In a production environment on Railway, these files will be stored in the ephemeral filesystem. For persistent storage, consider using a storage service like AWS S3.
+
+## Scaling Considerations
+
+- The application uses a single Flask process
+- For high-traffic applications, consider adding a WSGI server like Gunicorn
+- Large file uploads may require adjusting timeout settings in Railway
+
+## Troubleshooting
+
+If deployment fails:
+1. Check the build logs in Railway
+2. Verify all dependencies are correctly listed
+3. Ensure the build process completes within Railway's timeout limits
+4. Check that the start command works correctly

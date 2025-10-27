@@ -1,0 +1,14 @@
+2025-10-27 00:58:55,341 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-27 00:58:55,342 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-27 00:58:58,334 - werkzeug - INFO - 127.0.0.1 - - [27/Oct/2025 00:58:58] "GET / HTTP/1.1" 200 -
+2025-10-27 00:58:58,549 - werkzeug - INFO - 127.0.0.1 - - [27/Oct/2025 00:58:58] "GET /static/js/main.335b6153.js HTTP/1.1" 200 -
+2025-10-27 00:58:58,641 - werkzeug - INFO - 127.0.0.1 - - [27/Oct/2025 00:58:58] "GET /static/css/main.6fc010f0.css HTTP/1.1" 200 -
+2025-10-27 00:58:58,873 - werkzeug - INFO - 127.0.0.1 - - [27/Oct/2025 00:58:58] "GET /logo.png HTTP/1.1" 200 -
+2025-10-27 03:31:26,143 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-10-27 03:31:26,156 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-27 03:31:31,250 - werkzeug - INFO - 127.0.0.1 - - [27/Oct/2025 03:31:31] "[36mGET / HTTP/1.1[0m" 304 -
+2025-10-27 03:31:31,830 - werkzeug - INFO - 127.0.0.1 - - [27/Oct/2025 03:31:31] "[36mGET /static/js/main.335b6153.js HTTP/1.1[0m" 304 -
+2025-10-27 03:31:31,855 - werkzeug - INFO - 127.0.0.1 - - [27/Oct/2025 03:31:31] "[36mGET /static/css/main.6fc010f0.css HTTP/1.1[0m" 304 -
+2025-10-27 03:31:32,499 - werkzeug - INFO - 127.0.0.1 - - [27/Oct/2025 03:31:32] "[36mGET /logo.png HTTP/1.1[0m" 304 -

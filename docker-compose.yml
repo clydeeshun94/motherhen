@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  motherhen:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/downloads:/app/backend/downloads
+      - ./backend/compressed:/app/backend/compressed
+      - ./backend/modules/scraper/outputs:/app/backend/modules/scraper/outputs
+    environment:
+      - FLASK_ENV=development
+    # For Windows users, uncomment the following line:
+    # platform: linux/amd64
