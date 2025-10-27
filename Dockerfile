@@ -23,7 +23,7 @@ COPY build/ ./build
 COPY start.py ./start.py
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r backend/requirements.txt
 
 # Expose port (Railway will map this automatically)
 EXPOSE 5000
