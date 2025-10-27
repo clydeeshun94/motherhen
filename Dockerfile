@@ -4,7 +4,7 @@ FROM python:3.9-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies including ffmpeg
+# Install system dependencies including ffmpeg and Node.js (for serving build files if needed)
 RUN apt-get update && apt-get install -y \
     curl \
     gnupg \
@@ -16,14 +16,14 @@ RUN apt-get update && apt-get install -y \
 # Copy backend files
 COPY backend/ ./backend
 
-# Copy frontend build files to where backend expects them
+# Copy frontend build files (these will be served by Flask)
 COPY build/ ./build
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r backend/requirements.txt
 
-# Expose port
+# Expose port (Railway will map this automatically)
 EXPOSE 5000
 
-# Run the application
+# Default command to run the Flask backend
 CMD ["python", "backend/main.py"]
