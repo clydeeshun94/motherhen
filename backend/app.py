@@ -358,10 +358,10 @@ def create_app():
 
     return app
 
-def open_browser():
+def open_browser(port=4444):
     """Open the web browser after a short delay"""
     time.sleep(2)  # Wait for server to start
-    webbrowser.open('http://127.0.0.1:4444')
+    webbrowser.open(f'http://127.0.0.1:{port}')
 
 def main():
     print("=" * 70)
@@ -385,19 +385,27 @@ def main():
     else:
         print("✅ FFmpeg is properly installed")
     
+    # Get port from environment (Railway sets PORT) or default to 4444
+    port = int(os.environ.get('PORT', 4444))
+    host = '0.0.0.0'  # Bind to all interfaces for cloud deployment
+    
     print("\nStarting unified web server...")
-    print("Server will be available at: http://127.0.0.1:4444")
+    if os.environ.get('RAILWAY_ENVIRONMENT'):
+        print(f"Railway deployment on port {port}")
+    else:
+        print(f"Server will be available at: http://{host}:{port}")
     print("Press Ctrl+C to stop the server\n")
     
-    # Start browser in a separate thread
-    browser_thread = threading.Thread(target=open_browser)
-    browser_thread.daemon = True
-    browser_thread.start()
+    # Only start browser in local development (not on Railway)
+    if not os.environ.get('RAILWAY_ENVIRONMENT') and host in ['127.0.0.1', 'localhost']:
+        browser_thread = threading.Thread(target=open_browser, args=(port,))
+        browser_thread.daemon = True
+        browser_thread.start()
     
     try:
         # Create and run the app
         app = create_app()
-        app.run(debug=True, host='127.0.0.1', port=4444, use_reloader=False)
+        app.run(debug=False, host=host, port=port, use_reloader=False)
     except KeyboardInterrupt:
         print("\n\nServer stopped by user.")
     except Exception as e:
