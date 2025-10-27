@@ -37,7 +37,7 @@ class MotherHenApp:
         
         # Create directories
         for dir_path in [self.download_dir, self.compressed_dir, self.scraped_dir]:
-            dir_path.mkdir(exist_ok=True)
+            dir_path.mkdir(parents=True, exist_ok=True)
         
         # Storage
         self.downloads = {}
