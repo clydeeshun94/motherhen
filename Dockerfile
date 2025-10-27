@@ -19,11 +19,14 @@ COPY backend/ ./backend
 # Copy frontend build files (these will be served by Flask)
 COPY build/ ./build
 
+# Copy startup script
+COPY start.py ./start.py
+
 # Install Python dependencies
-RUN pip install --no-cache-dir -r backend/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose port (Railway will map this automatically)
 EXPOSE 5000
 
-# Default command to run the Flask backend
-CMD ["python", "backend/main.py"]
+# Default command to run the application
+CMD ["python", "start.py"]

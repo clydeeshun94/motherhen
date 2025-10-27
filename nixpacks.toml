@@ -7,4 +7,4 @@ cmds = [
 ]
 
 [start]
-cmd = "python backend/main.py"
+cmd = "python start.py"

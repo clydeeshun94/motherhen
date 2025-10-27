@@ -316,12 +316,22 @@ class MotherHenApp:
 
     # ---------------------- RUN SERVER ---------------------- #
     def run(self, host='0.0.0.0', port=5000, debug=False):
+        # Suppress Flask development server warnings on Railway
+        if os.environ.get('RAILWAY_ENVIRONMENT'):
+            import logging
+            log = logging.getLogger('werkzeug')
+            log.setLevel(logging.ERROR)
+        
         self.app.run(host=host, port=port, debug=debug, use_reloader=False)
 
 # ---------------------- MAIN ENTRY POINT ---------------------- #
 def open_browser(port=5000):
     time.sleep(2)
     webbrowser.open(f'http://127.0.0.1:{port}')
+
+def create_app():
+    """Factory function for gunicorn"""
+    return MotherHenApp().app
 
 def main():
     print("=" * 70)
@@ -334,10 +344,13 @@ def main():
     # Dynamic Railway configuration
     port = int(os.environ.get("PORT", 5000))
     is_railway = os.environ.get("RAILWAY_ENVIRONMENT") is not None
-    host = "0.0.0.0" if is_railway else "127.0.0.1"
+    host = "0.0.0.0"
 
     print(f"\n🚀 Starting MotherHen server...")
-    print(f"📍 Server: http://{host}:{port}")
+    if is_railway:
+        print(f"📍 Server: Railway deployment on port {port}")
+    else:
+        print(f"📍 Server: http://{host}:{port}")
     print("⏹️  Press Ctrl+C to stop\n")
 
     # Only open browser locally
